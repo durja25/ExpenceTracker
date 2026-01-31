@@ -19,29 +19,16 @@ RUN mvn clean package -DskipTests
 
 # --- PACKAGE STAGE ---
 # Use a smaller JRE (Java Runtime Environment) image for the final runtime
-FROM openjdk:21-jre-slim
+FROM eclipse-temurin:21-jre
 
 # Set the working directory for the final image
 WORKDIR /app
 
-COPY --from=build /usr/src/app/target/*.jar app.jar
-
-EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "app.jar"]
-
-
-
-
-FROM eclipse-temurin:21-jre
-WORKDIR /app
-
-
 # Copy the JAR file from the 'build' stage into the final image
-COPY target/ExpenceTracker-0.0.1-SNAPSHOT.jar ExpenceTracker.jar
+COPY --from=build /usr/src/app/target/*.jar ExpenceTrackerv1.jar
 
 # Expose the port your application runs on (commonly 8080 for web apps)
 EXPOSE 8080
 
 # Define the command to run the application when the container starts
-ENTRYPOINT ["java", "-jar", "ExpenceTracker.jar"]
+ENTRYPOINT ["java", "-jar", "ExpenceTrackerv1.jar"]
