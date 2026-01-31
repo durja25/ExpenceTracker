@@ -1,6 +1,6 @@
 # --- BUILD STAGE ---
 # Use an official Maven image with a JDK as the build environment.
-FROM maven:3.9.6-openjdk-21-slim AS build
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
